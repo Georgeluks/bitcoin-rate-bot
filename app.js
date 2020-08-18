@@ -7,9 +7,13 @@ const serverPort = process.env.YOUR_PORT || process.env.PORT || 3000;
 const serverHost = process.env.YOUT_HOST || '0.0.0.0';
 
 async function getBTCPrice(){
-    const response = await api.get();
+    try {
+        const response = await api.get();
+        return response.data.bpi['USD'].rate;
+    } catch (error) {
+        console.log(error)
+    }
 
-    return response.data.bpi['USD'].rate;
 };
 
 app.listen(serverPort, serverHost, () => {
